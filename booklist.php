@@ -17,7 +17,7 @@ function fetchQuery($db, $sql){
      }
 }
 
-if($SERVER['REQUEST_METHOD'] == 'POST' ){
+if($_SERVER['REQUEST_METHOD'] == 'POST' ){
     $db = new PDO("mysql:dbnamebook;host=localhost", "root");
     $db->setAtrribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $type = sanitize_input($_REQUEST['type']);
@@ -28,11 +28,11 @@ if($SERVER['REQUEST_METHOD'] == 'POST' ){
         var_dump($rows);
     }
     if ($type === "in_category") {
-        $category = $db->quote($_REQUEST['category']);
+        $category = strtolower($db->quote($_REQUEST['category']));
         $sql = "SELECT t.id, t.name, y.published, p.amount, c.name, a.name
             FROM title t JOIN year y ON y.id = t.id
             JOIN price p ON p.id = t.id
-            JOIN category c ON c.id = t.id
+            JOIN category c ON c.book_id = t.id
             JOIN author a ON a.id = t.id WHERE c.name <> $category";
         $rows = fetchQuery($db, $sql);
         var_dump($rows);
