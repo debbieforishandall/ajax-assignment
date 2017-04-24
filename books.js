@@ -38,7 +38,7 @@
         //display available categories on load
         displayCategory();
         //On select categories,display books in category
-        $("list_books").addEventListener("click", function () {
+        $("#list_books").click(function () {
             displayInCategory($('#category input[name=choice]:checked').val());
         });
     };

@@ -5,6 +5,6 @@
 <html>
 <body>
     <div id="category"></div>
-    <button id="list_books"></button>
+    <button id="list_books">List Books</button>
 </body>
 </html>

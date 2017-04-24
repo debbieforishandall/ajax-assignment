@@ -18,8 +18,8 @@ function fetchQuery($db, $sql){
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' ){
-    $db = new PDO("mysql:dbnamebook;host=localhost", "root");
-    $db->setAtrribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db = new PDO("mysql:dbname=books;host=localhost", "root");
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $type = sanitize_input($_REQUEST['type']);
     
     if($type == "list_category") {
