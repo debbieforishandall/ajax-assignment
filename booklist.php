@@ -1,5 +1,4 @@
-<?php
-header('Content-type: text/xml');
+<?php header('Content-type: text/xml');
 
 function sanitize_input($string=""){
     $string = htmlspecialchars($string);
@@ -29,28 +28,29 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' ){
     if($type == "list_category") {
         $sql = "SELECT * FROM category";
         $rows = fetchQuery($db, $sql);
-        $xml = new DOMDocument();
+        $output = '<? xml version="1.0" ?>';
+        //$xml = new DOMDocument();
         foreach ($rows as $row) {
-            $xml_category= $xml->createElement("Category");
+            /*$xml_category= $xml->createElement("Category");
             $xml_name = $xml->createElement("Name");
             $xml_id = $xml->createElement("Id");
             $xml_category->appendChild( $xml_name );
             $xml_category->appendChild($xml_id);
-            $xml->appendChild( $xml_album );
-            /*$output .= '<category>\n';
+            $xml->appendChild( $xml_album );*/
+            $output .= '<category>\n';
             $output .= '    <id>';
             $output .= $rows['book_id'];
             $output .= '</id>\n';
             $output .= '    <name>';
             $output .= $rows['name'];
             $output .= '</name>\n';
-            $output .= '</category>';*/
+            $output .= '</category>';
         }
         //make the output pretty
-        $xml->formatOutput = true;
+        //$xml->formatOutput = true;
 
-        echo $xml->saveXML();
-        //print( $output);
+        //echo $xml->saveXML();
+        print( $output);
     }
     if ($type === "in_category") {
         if (isset($_POST['type']) ) {
