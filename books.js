@@ -21,10 +21,10 @@
         new Ajax.Request("booklist.php",
             {
             method: "post",
-            crossOrigin: true,
             parameters: {type: type},
-            onSuccess: function (response) {
-                console.log(response);
+            //contentType: "text/xml; charset=utf-8",
+            onSuccess: function (ajax) {
+                console.log(ajax);
                 var category = ajax.responseXML.getElementsByTagName("category");
                 for (var i = 0; i < category.length; i++) {
                     var id = category[i].getElementsByTagName("id")[0].firstChild.nodeValue;
