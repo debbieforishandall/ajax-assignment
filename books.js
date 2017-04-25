@@ -11,22 +11,30 @@
 (function() {
     "use strict";
 
-    function ajaxError (ajax, exception) { 
+    function ajaxFailure (ajax, exception) { 
         console.log("Error making ajax request: " + "\nStatus: " + ajax.status + "  "
           + ajax.statusText + "\nResponse: " + ajax.responseText); 
     }
 
     function displayCategory() {
         var type = "list_category";
-        $.ajax({
-            url: "booklist.php",
-            type: "POST",
+        new Ajax.Request("booklist.php",
+            {
+            method: "post",
             crossOrigin: true,
-            data: {type: type},
-            success: function (response) {
+            parameters: {type: type},
+            onSuccess: function (response) {
                 console.log(response);
+                var category = ajax.responseXML.getElementsByTagName("category");
+                for (var i = 0; i < category.length; i++) {
+                    var id = category[i].getElementsByTagName("id")[0].firstChild.nodeValue;
+                    var name = category[i].getElementsByTagName("name")[0].firstChild.nodeValue;
+                    //make a radio button containing category
+                    var radioHtml = "<input type='radio' name='choice' id='" + id + "'>" + name;
+                    $("category").appendChild(radioHtml);
+                }
             },
-            error: ajaxError
+            onFailure: ajaxFailure
         });
     }
 
@@ -38,7 +46,7 @@
         //display available categories on load
         displayCategory();
         //On select categories,display books in category
-        $("#list_books").click(function () {
+        $("list_books").addEventListener("click", function () {
             displayInCategory($('#category input[name=choice]:checked').val());
         });
     };

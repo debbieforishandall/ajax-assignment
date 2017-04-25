@@ -26,6 +26,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' ){
         $sql = "SELECT * FROM category";
         $rows = fetchQuery($db, $sql);
         var_dump($rows);
+        $output = '<?xml version="1.0" encoding="UTF-8"?>';
+        $output .= '<book>';
+        foreach ($rows as $row) {
+            $output .= '<category>';
+            $output .= '<id>';
+            $output .= $rows['book_id'];
+            $output .= '<id>';
+            $output .= '<name>';
+            $output .= $rows['name'];
+            $output .= '</name>';
+            $output .= '</category>';
+        }
+        $output .= '</book>';
+        echo $output;
     }
     if ($type === "in_category") {
         $category = strtolower($db->quote($_REQUEST['category']));
