@@ -48,7 +48,12 @@
             onSuccess: function (ajax) {
                 console.log(ajax);
                 var data = JSON.parse(ajax.responseText);
-                
+                for (var i = 0; i < data.length; i++) {
+                    var name = data[i].name;
+                    //make a radio button containing category
+                    var radioHtml = "<input type='radio' name='choice' id='" + i + "'>" + name;
+                    $("category").appendChild(radioHtml);      
+                }
             },
             onFailure: ajaxFailure
         });

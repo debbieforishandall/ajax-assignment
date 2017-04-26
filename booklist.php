@@ -15,7 +15,7 @@ function fetchQuery($db, $sql){
     try {
         $smt = $db->prepare($sql);
         $smt->execute();
-        $rows = $smt->fetchAll();
+        $rows = $smt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
      } catch (PDOException $ex) {
         error_log($ex->getMessage(), 3, "errors.txt");
@@ -53,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' ){
                 $output .= '</category>';
         }
         } else { //send as json
-            $ouput = json_encode($rows);
+            $output = json_encode($rows);
         }
         //make the output pretty
         //$xml->formatOutput = true;
