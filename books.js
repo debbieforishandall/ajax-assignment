@@ -76,6 +76,33 @@
 
     function displayInCategoryJson($category) {
         var type = "in_category";
+        new Ajax.Request("booklist.php",
+            {
+            method: "post",
+            parameters: {type: type, json: true},
+            //contentType: "application/json",
+            onSuccess: function (ajax) {
+                console.log(ajax);
+                var data = JSON.parse(ajax.responseText);
+                //Create a div to append  the list to
+                var div=document.createElement('section');
+                div.setAttribute('id','books');
+                //Add div to body
+                document.body.appendChild(div);
+                //Create ul and append ul to div
+                var ul = document.createElement("ul");
+                div.appendChild(ul);
+                //for each json result, add an li to ul
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i].name + ", by " + data[i].author_name + " (" 
++ data[i].published + ")" ;
+                     var li = document.createElement("li");
+                     ul.appendChild(li);
+                     li.innerHTML=li.innerHTML + item;
+                }
+            },
+            onFailure: ajaxFailure
+        });
     }
 
     //Window load function
@@ -87,14 +114,14 @@
            displayCategoryJson();
            //On select categories,display books in category
             $("list_books").addEventListener("click", function () {
-                displayInCategoryJson($('#category input[name=choice]:checked').val());
+                displayInCategoryJson($$('input:checked[type=radio][name=choice]')[0].value);
             });
         } else {
             //display available categories on load using xml
             displayCategory();
             //On select categories,display books in category
             $("list_books").addEventListener("click", function () {
-                displayInCategory($('#category input[name=choice]:checked').val());
+                displayInCategory($$('input:checked[type=radio][name=choice]')[0].value);
             });
         }
         
