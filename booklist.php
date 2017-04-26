@@ -65,7 +65,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' ){
         if (isset($_POST['type']) ) {
             $category = strtolower($db->quote($_POST['category']));
         }
-        $sql = "SELECT t.id, t.name, y.published, p.amount, c.name, a.author_name
+        $sql = "SELECT t.id, t.book_title, y.published, p.amount, c.name, a.author_name
             FROM title t JOIN year y ON y.id = t.id
             JOIN price p ON p.id = t.id
             JOIN category c ON c.book_id = t.id

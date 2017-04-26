@@ -9,6 +9,7 @@
 <body>
     <div id="category"></div>
     <button id="list_books">List Books</button>
+    <br>
     <div id="books"></div>
 </body>
 </html>

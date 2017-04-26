@@ -70,31 +70,32 @@
         });
     }
 
-    function displayInCategory($category) {
+    function displayInCategory(category) {
         var type = "in_category";
     }
 
-    function displayInCategoryJson($category) {
+    function displayInCategoryJson(category) {
         var type = "in_category";
         new Ajax.Request("booklist.php",
             {
             method: "post",
-            parameters: {type: type, json: true},
+            parameters: {type: type, json: true, category: category},
             //contentType: "application/json",
             onSuccess: function (ajax) {
                 console.log(ajax);
                 var data = JSON.parse(ajax.responseText);
-                //Create a div to append  the list to
-                var div=document.createElement('section');
-                div.setAttribute('id','books');
-                //Add div to body
-                document.body.appendChild(div);
+                //Add a p tag describng category
+                var p = document.createElement("p");
+                var textnode = document.createTextNode('Books in category "' + category + '":');
+                p.appendChild(textnode);
+                $("books").innerText = "";
+                $("books").appendChild(p);
                 //Create ul and append ul to div
                 var ul = document.createElement("ul");
-                div.appendChild(ul);
+                $("books").appendChild(ul);
                 //for each json result, add an li to ul
                 for (var i = 0; i < data.length; i++) {
-                    var item = data[i].name + ", by " + data[i].author_name + " (" 
+                    var item = data[i].book_title+ ", by " + data[i].author_name + " (" 
 + data[i].published + ")" ;
                      var li = document.createElement("li");
                      ul.appendChild(li);
