@@ -21,8 +21,8 @@
         new Ajax.Request("booklist.php",
             {
             method: "post",
-            parameters: {type: type},
-            //contentType: "text/xml; charset=utf-8",
+            parameters: {type: type, json: false},
+            //contentType: "text/xml",
             onSuccess: function (ajax) {
                 console.log(ajax);
                 var category = ajax.responseXML.getElementsByTagName("category");
@@ -38,16 +38,49 @@
         });
     }
 
+    function displayCategoryJson() {
+        var type = "list_category";
+        new Ajax.Request("booklist.php",
+            {
+            method: "post",
+            parameters: {type: type, json: true},
+            //contentType: "application/json",
+            onSuccess: function (ajax) {
+                console.log(ajax);
+                var data = JSON.parse(ajax.responseText);
+                
+            },
+            onFailure: ajaxFailure
+        });
+    }
+
     function displayInCategory($category) {
         var type = "in_category";
     }
+
+    function displayInCategoryJson($category) {
+        var type = "in_category";
+    }
+
     //Window load function
     window.onload=function () {
-        //display available categories on load
-        displayCategory();
-        //On select categories,display books in category
-        $("list_books").addEventListener("click", function () {
-            displayInCategory($('#category input[name=choice]:checked').val());
-        });
+        //Check if the get param format is set to json
+        var json = window.location.search.substr(1);
+        if (json == "format=json") {
+           //display available categories on load using json
+           displayCategoryJson();
+           //On select categories,display books in category
+            $("list_books").addEventListener("click", function () {
+                displayInCategoryJson($('#category input[name=choice]:checked').val());
+            });
+        } else {
+            //display available categories on load using xml
+            displayCategory();
+            //On select categories,display books in category
+            $("list_books").addEventListener("click", function () {
+                displayInCategory($('#category input[name=choice]:checked').val());
+            });
+        }
+        
     };
 }());
