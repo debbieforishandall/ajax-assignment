@@ -26,12 +26,18 @@
             onSuccess: function (ajax) {
                 console.log(ajax);
                 var category = ajax.responseXML.getElementsByTagName("category");
+                console.log("category xml: " + category.length);
                 for (var i = 0; i < category.length; i++) {
-                    var id = category[i].getElementsByTagName("id")[0].firstChild.nodeValue;
                     var name = category[i].getElementsByTagName("name")[0].firstChild.nodeValue;
                     //make a radio button containing category
-                    var radioHtml = "<input type='radio' name='choice' id='" + id + "' value='" + name +"'>" + name;
-                    $("category").appendChild(radioHtml);
+                    var radioHtml = "<input type='radio' name='choice' id='" + i + "' value='" + name +"'>" + name;
+                    var radioFragment = document.createElement('div');
+                    radioFragment.innerHTML = radioHtml;
+                    var labelHtml = "<label for='" + i + "'>"+name+"</label>";
+                    var labelFragment = document.createElement('div');
+                    labelFragment.innerHTML = labelHtml;
+                    $("category").appendChild(radioFragment.firstChild);   
+                    $("category").appendChild(labelFragment.firstChild); 
                 }
             },
             onFailure: ajaxFailure
@@ -72,6 +78,39 @@
 
     function displayInCategory(category) {
         var type = "in_category";
+        new Ajax.Request("booklist.php",
+            {
+            method: "post",
+            parameters: {type: type, json: false},
+            //contentType: "text/xml",
+            onSuccess: function (ajax) {
+                console.log(ajax);
+                var book = ajax.responseXML.getElementsByTagName("book");
+                console.log("category xml: " + book.length);
+                //Add a p tag describng category
+                var p = document.createElement("p");
+                var textnode = document.createTextNode('Books in category "' + category + '":');
+                p.appendChild(textnode);
+                $("books").innerText = "";
+                $("books").appendChild(p);
+                //Create ul and append ul to div
+                var ul = document.createElement("ul");
+                $("books").appendChild(ul);
+                console.log("book.length:" + book.length);
+                for (var i = 0; i < book.length; i++) {
+                    var id = book[i].getElementsByTagName("id")[0].firstChild.nodeValue;
+                    var title = book[i].getElementsByTagName("title")[0].firstChild.nodeValue;
+                    var author = book[i].getElementsByTagName("author")[0].firstChild.nodeValue;
+                    var year = book[i].getElementsByTagName("year")[0].firstChild.nodeValue;
+                    //make li containing book
+                    var item = title + ", by " + author + " (" + year + ")" ;
+                    var li = document.createElement("li");
+                    ul.appendChild(li);
+                    li.innerHTML = li.innerHTML + item; 
+                }
+            },
+            onFailure: ajaxFailure
+        });
     }
 
     function displayInCategoryJson(category) {

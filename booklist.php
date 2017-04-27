@@ -31,34 +31,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' ){
         $json = sanitize_input($_POST['json']);
     }
     if($type == "list_category") {
-        $sql = "SELECT * FROM category";
+        $sql = "SELECT DISTINCT name FROM category";
         $rows = fetchQuery($db, $sql);
+        $output = "<root>";
         if ($json == "false") {
-            $output = '<? xml version="1.0" ?>';
-            $xml = new SimpleXMLElement('<xml/>');
+            
             foreach ($rows as $row) {
-                /*$xml_category= $xml->createElement("Category");
-                $xml_name = $xml->createElement("Name");
-                $xml_id = $xml->createElement("Id");
-                $xml_category->appendChild( $xml_name );
-                $xml_category->appendChild($xml_id);
-                $xml->appendChild( $xml_album );*/
-                $output .= '<category>\n';
-                $output .= '<id>';
-                $output .= $row['book_id'];
-                $output .= '</id>\n';
-                $output .= '<name>';
+                $output .= "<category>";
+                $output .= "<name>";
                 $output .= $row['name'];
-                $output .= '</name>\n';
-                $output .= '</category>';
-        }
+                $output .= "</name>";
+                $output .= "</category>";
+            }
+             $output .= "</root>";
         } else { //send as json
             $output = json_encode($rows);
         }
-        //make the output pretty
-        //$xml->formatOutput = true;
-
-        //echo $xml->saveXML();
+        
         print( $output);
     }
     if ($type === "in_category") {
@@ -72,7 +61,27 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' ){
             JOIN author a ON a.id = t.id WHERE c.name <> $category";
         $rows = fetchQuery($db, $sql);
         if ($json == "false") {
-            $output = '<? xml version="1.0" ?>';
+            $output = "<root>";
+            foreach ($rows as $row) {
+                $output .= "<book>";
+                $output .= "<id>";
+                $output .= $row['id'];
+                $output .= "</id>";
+                $output .= "<title>";
+                $output .= $row['book_title'];
+                $output .= "</title>";
+                $output .= "<category>";
+                $output .= $row['name'];
+                $output .= "</category>";
+                $output .= "<author>";
+                $output .= $row['author_name'];
+                $output .= "</author>";
+                $output .= "<year>";
+                $output .= $row['published'];
+                $output .= "</year>";
+                $output .= "</book>";
+            }
+            $output .= "</root>";
         } else { //json output
             $output = json_encode($rows);
         }
