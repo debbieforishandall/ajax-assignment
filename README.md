@@ -31,3 +31,7 @@ Five Significant Commits:
 
    - Wrote code to display books in particular categories for json
    - Apr 26 2017, 12:22AM EDT
+
+Notes:
+
+IE does not support setting name attribute of radio buttons dynamically. So I built the radiobutton with a string instead of document.createElement to workaround that.
