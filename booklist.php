@@ -23,7 +23,7 @@ function fetchQuery($db, $sql){
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' ){
-    $db = new PDO("mysql:dbname=books;host=localhost", "root");
+    $db = new PDO("mysql:dbname=nerdlove_books;host=localhost", "nerdlove_root", "password");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $type = "";
     if (isset($_POST['type']) ) {
