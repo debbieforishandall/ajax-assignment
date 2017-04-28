@@ -24,17 +24,16 @@
             parameters: {type: type, json: false},
             //contentType: "text/xml",
             onSuccess: function (ajax) {
-                console.log(ajax);
                 var category = ajax.responseXML.getElementsByTagName("category");
-                console.log("category xml: " + category.length);
-                for (var i = 0; i < category.length; i++) {
+                var i = 0;
+                for (i = 0; i < category.length; i++) {
                     var name = category[i].getElementsByTagName("name")[0].firstChild.nodeValue;
                     //make a radio button containing category
                     var radioHtml = "<input type='radio' name='choice' id='" + i + "' value='" + name +"'>" + name;
-                    var radioFragment = document.createElement('div');
+                    var radioFragment = document.createElement("div");
                     radioFragment.innerHTML = radioHtml;
                     var labelHtml = "<label for='" + i + "'>"+name+"</label>";
-                    var labelFragment = document.createElement('div');
+                    var labelFragment = document.createElement("div");
                     labelFragment.innerHTML = labelHtml;
                     $("category").appendChild(radioFragment.firstChild);   
                     $("category").appendChild(labelFragment.firstChild); 
@@ -52,21 +51,19 @@
             parameters: {type: type, json: true},
             //contentType: "application/json",
             onSuccess: function (ajax) {
-                console.log(ajax);
                 var data = JSON.parse(ajax.responseText);
-                console.log("data" + data[1].name);
-                for (var i = 0; i < data.length; i++) {
+                var i = 0;
+                for (i = 0; i < data.length; i++) {
                     var name = data[i].name;
                     //make a radio button containing category
-                    //Work around for IE notl etting you set the names of radio buttons dynamically
+                    //Work around for IE not letting you set the names of radio buttons dynamically
 
                     var radioHtml = "<input type='radio' name='choice' id='" + i + "' value='" 
 + name +"'>" + name;
-                    console.log(radioHtml);
-                    var radioFragment = document.createElement('div');
+                    var radioFragment = document.createElement("div");
                     radioFragment.innerHTML = radioHtml;
                     var labelHtml = "<label for='" + i + "'>"+name+"</label>";
-                    var labelFragment = document.createElement('div');
+                    var labelFragment = document.createElement("div");
                     labelFragment.innerHTML = labelHtml;
                     $("category").appendChild(radioFragment.firstChild);   
                     $("category").appendChild(labelFragment.firstChild); 
@@ -84,20 +81,18 @@
             parameters: {type: type, json: false, category: category},
             //contentType: "text/xml",
             onSuccess: function (ajax) {
-                console.log(ajax);
                 var book = ajax.responseXML.getElementsByTagName("book");
-                console.log("category xml: " + book.length);
                 //Add a p tag describng category
                 var p = document.createElement("p");
-                var textnode = document.createTextNode('Books in category "' + category + '":');
+                var textnode = document.createTextNode("Books in category '" + category + "':");
                 p.appendChild(textnode);
                 $("books").innerText = "";
                 $("books").appendChild(p);
                 //Create ul and append ul to div
                 var ul = document.createElement("ul");
                 $("books").appendChild(ul);
-                console.log("book.length:" + book.length);
-                for (var i = 0; i < book.length; i++) {
+                var i = 0;
+                for (i = 0; i < book.length; i++) {
                     var id = book[i].getElementsByTagName("id")[0].firstChild.nodeValue;
                     var title = book[i].getElementsByTagName("title")[0].firstChild.nodeValue;
                     var author = book[i].getElementsByTagName("author")[0].firstChild.nodeValue;
@@ -121,11 +116,10 @@
             parameters: {type: type, json: true, category: category},
             //contentType: "application/json",
             onSuccess: function (ajax) {
-                console.log(ajax);
                 var data = JSON.parse(ajax.responseText);
                 //Add a p tag describng category
                 var p = document.createElement("p");
-                var textnode = document.createTextNode('Books in category "' + category + '":');
+                var textnode = document.createTextNode("Books in category '" + category + "':");
                 p.appendChild(textnode);
                 $("books").innerText = "";
                 $("books").appendChild(p);
@@ -133,7 +127,8 @@
                 var ul = document.createElement("ul");
                 $("books").appendChild(ul);
                 //for each json result, add an li to ul
-                for (var i = 0; i < data.length; i++) {
+                var i = 0;
+                for (i = 0; i < data.length; i++) {
                     var item = data[i].book_title+ ", by " + data[i].author_name + " (" 
 + data[i].published + ")" ;
                      var li = document.createElement("li");
@@ -154,14 +149,14 @@
            displayCategoryJson();
            //On select categories,display books in category
             $("list_books").addEventListener("click", function () {
-                displayInCategoryJson($$('input:checked[type=radio][name=choice]')[0].value);
+                displayInCategoryJson($$("input:checked[type=radio][name=choice]")[0].value);
             });
         } else {
             //display available categories on load using xml
             displayCategory();
             //On select categories,display books in category
             $("list_books").addEventListener("click", function () {
-                displayInCategory($$('input:checked[type=radio][name=choice]')[0].value);
+                displayInCategory($$("input:checked[type=radio][name=choice]")[0].value);
             });
         }
         
