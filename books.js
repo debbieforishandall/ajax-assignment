@@ -81,7 +81,7 @@
         new Ajax.Request("booklist.php",
             {
             method: "post",
-            parameters: {type: type, json: false},
+            parameters: {type: type, json: false, category: category},
             //contentType: "text/xml",
             onSuccess: function (ajax) {
                 console.log(ajax);
