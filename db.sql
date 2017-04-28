@@ -29,15 +29,6 @@ CREATE TABLE `author` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `author`
---
-
-LOCK TABLES `author` WRITE;
-/*!40000 ALTER TABLE `author` DISABLE KEYS */;
-INSERT INTO `author` VALUES (1,'Chimamanda Adichie');
-/*!40000 ALTER TABLE `author` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `category`
@@ -52,15 +43,6 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `category`
---
-
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES ('fiction',1),('young adult',1);
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `price`
@@ -76,15 +58,7 @@ CREATE TABLE `price` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `price`
---
 
-LOCK TABLES `price` WRITE;
-/*!40000 ALTER TABLE `price` DISABLE KEYS */;
-INSERT INTO `price` VALUES (1,10.84);
-/*!40000 ALTER TABLE `price` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `title`
@@ -100,15 +74,6 @@ CREATE TABLE `title` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `title`
---
-
-LOCK TABLES `title` WRITE;
-/*!40000 ALTER TABLE `title` DISABLE KEYS */;
-INSERT INTO `title` VALUES (1,'Purple Hibiscus');
-/*!40000 ALTER TABLE `title` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `year`
@@ -124,15 +89,7 @@ CREATE TABLE `year` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `year`
---
 
-LOCK TABLES `year` WRITE;
-/*!40000 ALTER TABLE `year` DISABLE KEYS */;
-INSERT INTO `year` VALUES (1,0000);
-/*!40000 ALTER TABLE `year` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
